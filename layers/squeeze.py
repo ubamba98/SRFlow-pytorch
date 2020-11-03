@@ -1,4 +1,5 @@
 import torch
+import torch.nn as nn
 from torch.nn import functional as F
 
 class Squeeze2D(nn.Module):
