@@ -7,6 +7,7 @@ class ActNorm2D(nn.Module):
     as described in the paper `Glow: Generative Flow with Invertible 1×1 Convolutions <https://arxiv.org/abs/1807.03039>`.
     '''
     def __init__(self, num_features, scale=1.):
+        super(ActNorm2D, self).__init__()
         size = (1, self.num_features, 1, 1)
         self.initialized = False
         self.num_features = num_features
@@ -51,6 +52,3 @@ class ActNorm2D(nn.Module):
             return x, logdet + dlogdet
 
         return x
-
-        
-    
