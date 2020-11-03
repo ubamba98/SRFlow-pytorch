@@ -1,1 +1,1 @@
-from actnorm import ActNorm2D
+from .actnorm import ActNorm2D

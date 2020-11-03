@@ -3,7 +3,8 @@ import torch.nn as nn
 
 class ActNorm2D(nn.Module):
     '''
-    Applies Activation Normalizaton over a 4D input (a mini-batch of 2D inputs with additional channel dimension) as described in the paper `Glow: Generative Flow with Invertible 1×1 Convolutions <https://arxiv.org/abs/1807.03039>`.
+    Applies Activation Normalizaton over a 4D input (a mini-batch of 2D inputs with additional channel dimension)
+    as described in the paper `Glow: Generative Flow with Invertible 1×1 Convolutions <https://arxiv.org/abs/1807.03039>`.
     '''
     def __init__(self, num_features, scale=1.):
         size = (1, self.num_features, 1, 1)
@@ -21,8 +22,8 @@ class ActNorm2D(nn.Module):
     def init_params(self, x):
         x_mean = torch.mean(x, (0, 2, 3), keepdim=True)
         x_std = torch.std(x, (0, 2, 3), keepdim=True)
-        logs = self.scale/(x_std+1e-6)
-        self.bias.data.copy_(x_mean)
+        logs = torch.log(self.scale/(x_std+1e-6))
+        self.bias.data.copy_(-x_mean)
         self.logs.data.copy_(logs)
         self.initialized = True
     
